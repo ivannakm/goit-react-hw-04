@@ -15,6 +15,8 @@ const ImageModal = ({ isOpen, onClose, image }) => {
     return () => window.removeEventListener("keydown", handleEsc);
   }, [onClose]);
 
+  if (!image) return null;
+
   return (
     <Modal
       isOpen={isOpen}
@@ -24,7 +26,14 @@ const ImageModal = ({ isOpen, onClose, image }) => {
       shouldCloseOnOverlayClick={true}
       shouldCloseOnEsc={true}
     >
-      <img src={image.url} alt={image.alt} className={css.image} />
+      <img
+        src={image.fullUrl || image.url}
+        alt={image.alt}
+        className={css.image}
+      />
+      <p>Author: {image.author}</p>
+      <p>Likes: {image.likes}</p>
+      <p>{image.description}</p>
     </Modal>
   );
 };
